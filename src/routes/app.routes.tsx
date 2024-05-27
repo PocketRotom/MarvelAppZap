@@ -3,6 +3,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {Welcome} from '../screens/Welcome';
 import {Login} from '../screens/Login';
+import {Heroes} from '../screens/Heroes';
 
 const Stack = createNativeStackNavigator();
 
@@ -20,6 +21,13 @@ const AppRoutes: React.FC = () => {
         <Stack.Screen
           name="Welcome"
           component={Welcome}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="Heroes"
+          component={Heroes}
           options={{
             headerShown: false,
           }}

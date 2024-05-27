@@ -1,8 +1,14 @@
 import React from 'react';
 import {Text} from 'react-native';
 import {Container, ShowButton, Title, WelcomeLogo} from './styles';
+import {StackNavigationProp} from '@react-navigation/stack';
 
-export const Welcome: React.FC = () => {
+type Props = {
+  //TODO TYPESCRIPT
+  navigation: StackNavigationProp<any>;
+};
+
+export const Welcome: React.FC<Props> = ({navigation}) => {
   return (
     <Container>
       <Title>Welcome to the Marvel Heroes Universe!</Title>
@@ -10,7 +16,7 @@ export const Welcome: React.FC = () => {
         source={require('../../assets/marvelHeroesLogo.jpg')}
         resizeMode="contain"
       />
-      <ShowButton onPress={() => console.log('navegar')}>
+      <ShowButton onPress={() => navigation.navigate('Heroes')}>
         <Text>Show me the Heroes!</Text>
       </ShowButton>
     </Container>
