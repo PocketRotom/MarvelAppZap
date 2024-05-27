@@ -17,7 +17,7 @@ export const Login: React.FC<Props> = ({navigation}) => {
     //TODO
     if (username === password) {
       setWrongPassword(false);
-      navigation.navigate('Landing');
+      navigation.navigate('Welcome');
     } else {
       setWrongPassword(true);
     }
