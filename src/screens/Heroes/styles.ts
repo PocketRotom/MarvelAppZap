@@ -59,3 +59,12 @@ export const Title = styled.Text`
   color: blue;
   font-size: 18px;
 `;
+
+export const TextInput = styled.TextInput`
+  width: 80%;
+  height: 50px;
+  background-color: white;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 20px;
+`;
