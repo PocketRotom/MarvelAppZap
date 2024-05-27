@@ -1,5 +1,5 @@
 import React from 'react';
-import {FlatList, Text, View} from 'react-native';
+import {FlatList, Text, TouchableOpacity, View} from 'react-native';
 import {
   Container,
   HeroContainer,
@@ -11,22 +11,36 @@ import {
   Title,
 } from './styles';
 import {getHeroes} from '../../services/heroes';
+import {StackNavigationProp} from '@react-navigation/stack';
 
-export const Heroes: React.FC = () => {
+type Props = {
+  //TODO TYPESCRIPT
+  navigation: StackNavigationProp<any>;
+};
+
+export const Heroes: React.FC<Props> = ({navigation}) => {
   const [heroes, setHeroes] = React.useState<any[]>([]);
   const [heroesSmall, setHeroesSmall] = React.useState<any[]>([]);
   const [showAll, setShowAll] = React.useState<boolean>(false);
+
+  function openHero(hero: any) {
+    navigation.navigate('Hero', {
+      hero,
+    });
+  }
 
   const renderItemBig = ({item}: {item: any}) => {
     console.log(item);
     return (
       <View>
-        <HeroImage
-          source={{
-            uri: item.images.lg,
-          }}
-          resizeMode="contain"
-        />
+        <TouchableOpacity onPress={() => openHero(item)}>
+          <HeroImage
+            source={{
+              uri: item.images.lg,
+            }}
+            resizeMode="contain"
+          />
+        </TouchableOpacity>
         <HeroName>{item.name}</HeroName>
       </View>
     );
@@ -36,12 +50,14 @@ export const Heroes: React.FC = () => {
     console.log(item);
     return (
       <HeroContainer>
-        <HeroImageSmall
-          source={{
-            uri: item.images.sm,
-          }}
-          resizeMode="contain"
-        />
+        <TouchableOpacity onPress={() => openHero(item)}>
+          <HeroImageSmall
+            source={{
+              uri: item.images.sm,
+            }}
+            resizeMode="contain"
+          />
+        </TouchableOpacity>
         <HeroName>{item.name}</HeroName>
       </HeroContainer>
     );
@@ -56,20 +72,17 @@ export const Heroes: React.FC = () => {
     })();
   }, []);
 
-  if (heroes.length === 0) {
-    return <Text>Loading...</Text>;
-  }
-
   console.log(heroesSmall);
   //TODO TS
   return (
     <Container>
       <Title>Heroes</Title>
       <ShowButton onPress={() => setShowAll(!showAll)}>
-        <Text>Show More</Text>
+        <Text>Show {showAll ? 'Less' : 'More'} </Text>
       </ShowButton>
       <HeroesView>
-        {showAll && (
+        {heroes.length === 0 && <Text>Loading...</Text>}
+        {showAll && heroes.length !== 0 && (
           <FlatList
             data={heroes}
             renderItem={renderItemSmall}
@@ -77,7 +90,7 @@ export const Heroes: React.FC = () => {
             keyExtractor={(heroe: any) => heroe.id}
           />
         )}
-        {!showAll && (
+        {!showAll && heroes.length !== 0 && (
           <FlatList
             data={heroesSmall}
             renderItem={renderItemBig}
