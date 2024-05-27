@@ -5,8 +5,9 @@ import {Welcome} from '../screens/Welcome';
 import {Login} from '../screens/Login';
 import {Heroes} from '../screens/Heroes';
 import {Hero} from '../screens/Hero';
+import {RouteParams} from '../models/RouteParams';
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<RouteParams>();
 
 const AppRoutes: React.FC = () => {
   return (

@@ -1,11 +1,17 @@
 import React from 'react';
 import {Text} from 'react-native';
-import {Container, ErrorText, LoginLogo, SubmitButton, TextInput} from './styles';
+import {
+  Container,
+  ErrorText,
+  LoginLogo,
+  SubmitButton,
+  TextInput,
+} from './styles';
 import {StackNavigationProp} from '@react-navigation/stack';
+import {RouteParams} from '../../models/RouteParams';
 
 type Props = {
-  //TODO TYPESCRIPT
-  navigation: StackNavigationProp<any>;
+  navigation: StackNavigationProp<RouteParams>;
 };
 
 export const Login: React.FC<Props> = ({navigation}) => {

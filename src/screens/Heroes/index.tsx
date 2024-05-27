@@ -12,25 +12,25 @@ import {
 } from './styles';
 import {getHeroes} from '../../services/heroes';
 import {StackNavigationProp} from '@react-navigation/stack';
+import {Hero} from '../../models/Hero';
+import {RouteParams} from '../../models/RouteParams';
 
 type Props = {
-  //TODO TYPESCRIPT
-  navigation: StackNavigationProp<any>;
+  navigation: StackNavigationProp<RouteParams>;
 };
 
 export const Heroes: React.FC<Props> = ({navigation}) => {
-  const [heroes, setHeroes] = React.useState<any[]>([]);
-  const [heroesSmall, setHeroesSmall] = React.useState<any[]>([]);
+  const [heroes, setHeroes] = React.useState<Hero[]>([]);
+  const [heroesSmall, setHeroesSmall] = React.useState<Hero[]>([]);
   const [showAll, setShowAll] = React.useState<boolean>(false);
 
-  function openHero(hero: any) {
+  function openHero(hero: Hero) {
     navigation.navigate('Hero', {
       hero,
     });
   }
 
-  const renderItemBig = ({item}: {item: any}) => {
-    console.log(item);
+  const renderItemBig = ({item}: {item: Hero}) => {
     return (
       <View>
         <TouchableOpacity onPress={() => openHero(item)}>
@@ -46,8 +46,7 @@ export const Heroes: React.FC<Props> = ({navigation}) => {
     );
   };
 
-  const renderItemSmall = ({item}: {item: any}) => {
-    console.log(item);
+  const renderItemSmall = ({item}: {item: Hero}) => {
     return (
       <HeroContainer>
         <TouchableOpacity onPress={() => openHero(item)}>
@@ -71,15 +70,9 @@ export const Heroes: React.FC<Props> = ({navigation}) => {
       });
     })();
   }, []);
-
-  console.log(heroesSmall);
-  //TODO TS
   return (
     <Container>
       <Title>Heroes</Title>
-      <ShowButton onPress={() => setShowAll(!showAll)}>
-        <Text>Show {showAll ? 'Less' : 'More'} </Text>
-      </ShowButton>
       <HeroesView>
         {heroes.length === 0 && <Text>Loading...</Text>}
         {showAll && heroes.length !== 0 && (
@@ -87,18 +80,21 @@ export const Heroes: React.FC<Props> = ({navigation}) => {
             data={heroes}
             renderItem={renderItemSmall}
             numColumns={2}
-            keyExtractor={(heroe: any) => heroe.id}
+            keyExtractor={(hero: any) => hero.id}
           />
         )}
         {!showAll && heroes.length !== 0 && (
           <FlatList
             data={heroesSmall}
             renderItem={renderItemBig}
-            keyExtractor={(heroe: any) => heroe.id}
+            keyExtractor={(hero: any) => hero.id}
             horizontal={true}
           />
         )}
       </HeroesView>
+      <ShowButton onPress={() => setShowAll(!showAll)}>
+        <Text>Show {showAll ? 'Less' : 'More'} </Text>
+      </ShowButton>
     </Container>
   );
 };

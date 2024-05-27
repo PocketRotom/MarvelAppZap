@@ -1,15 +1,13 @@
 import React from 'react';
-import {Text} from 'react-native';
-import {Container, HeroImage, ShowButton, Stats, Title} from './styles';
-import {StackNavigationProp} from '@react-navigation/stack';
+import {Container, HeroImage, Stats, Title} from './styles';
+import {RouteParams} from '../../models/RouteParams';
+import {RouteProp} from '@react-navigation/native';
 
 type Props = {
-  //TODO TYPESCRIPT
-  navigation: StackNavigationProp<any>;
-  route: any;
+  route: RouteProp<RouteParams, 'Hero'>;
 };
 
-export const Hero: React.FC<Props> = ({route, navigation}) => {
+export const Hero: React.FC<Props> = ({route}) => {
   const {hero} = route.params;
   return (
     <Container>
